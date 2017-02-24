@@ -2,81 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="css/index.css">
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery.fullPage.min.js"></script>
-
+    <title>Flappy_bird</title>
+    <script src="./js/lib/util.js"></script>
+    <script src="./js/lib/e.js"></script>
+    <script src="./js/lib/imgLoad.js"></script>
+    <script src="./js/roles/role_base.js"></script>
+    <script src="./js/roles/bird.js"></script>
+    <script src="./js/roles/pipe.js"></script>
+    <script src="./js/roles/land.js"></script>
+    <script src="./js/roles/sky.js"></script>
+    <script src="./js/roles/timer.js"></script>
+    <script src="./js/flappy_bird.js"></script>
 </head>
 <body>
-<div id="page360">
-    <div class="section">
-        <div class="logo"></div>
-        <div class="text">
-            <img src="images/text_1.png" alt="">
-            <img src="images/text_2.png" alt="">
-            <img src="images/text_3.png" alt="">
-            <img src="images/text_4.png" alt="">
-            <img src="images/text_5.png" alt="">
-            <img src="images/text_6.png" alt="">
-            <img src="images/text_7.png" alt="">
-            <img src="images/text_8.png" alt="">
-        </div>
-        <div class="info"></div>
-    </div>
-    <div class="section">
-       <div class="shield">
-           <img src="images/shield_1.png" alt="">
-           <img src="images/shield_2.png" alt="">
-           <img src="images/shield_3.png" alt="">
-           <img src="images/shield_4.png" alt="">
-           <img src="images/shield_5.png" alt="">
-           <img src="images/shield_6.png" alt="">
-           <img src="images/shield_7.png" alt="">
-           <img src="images/shield_8.png" alt="">
-           <img src="images/shield_9.png" alt="">
-       </div>
-        <div class="info"></div>
-    </div>
-    <div class="section">
-        <div class="info"></div>
-        <div class="circle">
-            <div class="rocket"></div>
-        </div>
-    </div>
-    <div class="section">
-        <div class="search">
-            <div class="input">
-                <div class="key"></div>
-                <div class="result"></div>
-
-            </div>
-        </div>
-        <div class="info"></div>
-    </div>
-    <div class="section">
-        <div class="info"></div>
-        <div class="browser">
-            <div class="toolbar">
-                <div class="box"></div>
-            </div>
-            <div class="extra"></div>
-        </div>
-    </div>
-</div>
-<script>
-    $(function(){
-        $('#page360').fullpage({
-            sectionsColor:['#0da5d6', '#2AB561', '#DE8910', '#16BA9D', '#0DA5D6'],
-            afterLoad: function (anchorLink,index) {
-
-                setTimeout(function () {
-                    $(".section").removeClass("current");
-                    $(".section").eq(index-1).addClass("current");
-                },100);
-            }
-        });
-    });
-</script>
+    <script>
+        var flaB = new FlappyBird('body');
+        flaB.run();
+    </script>
 </body>
 </html>
