@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=2048, user-scalable=0">
+  <!-- <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"> -->
+  <meta name="screen-orientation" content="portrait" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="full-screen" content="yes">
+  <meta name="x5-fullscreen" content="true">
+  <title>美肌工坊</title>
+  <script src="https://img.wface.cn/file/cdnjs/mqttws31.js"></script>
+<link href="/static/css/app.css" rel="stylesheet"></head>
+
+<body>
+  <div id="app">
+    <router-view></router-view>
+  </div>
+  <script>
+    var callbackMap = {};
+
+    function handlerFromNative(datatype, data, secData) {
+      try {
+        data = JSON.parse(data);
+      } catch (e) {}
+      var cb = callbackMap[datatype];
+      if (cb) {
+        cb(data, secData) && delete callbackMap[datatype];
+      } else if (datatype == "notification") {
+        window.__notificationCallback && window.__notificationCallback(data);
+      }
+    }
+    var app = {
+      getData: function (datatype, callback, extra) {
+        // alert(datatype+JSON.stringify(extra));
+        //安卓
+        if (window.androidAction) {
+          if (callback) callbackMap[datatype] = callback;
+          if (Object.prototype.toString(extra) === "[object Object]") extra = JSON.stringify(extra);
+          window.androidAction.getData(datatype, extra);
+          return;
+        } else if (!window.webkit || !window.webkit.messageHandlers || !window.webkit.messageHandlers[datatype]) {
+          return;
+        }
+        //苹果
+        if (callback) callbackMap[datatype] = callback;
+        window.webkit.messageHandlers[datatype].postMessage(extra || {})
+      }
+    }
+    window.JSBridge = app;
+
+  </script>
+<script type="text/javascript" src="/static/js/manifest.js"></script><script type="text/javascript" src="/static/js/vendor.js"></script><script type="text/javascript" src="/static/js/app.js"></script></body>
+
+</html>
